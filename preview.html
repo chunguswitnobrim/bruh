@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Idle Casino</title>
+  <style>
+    body {
+      background: #220000;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      padding: 20px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 24px;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #spin {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: gold;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .upgrade {
+      background: crimson;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>IDLE CASINO</h1>
+
+<h2 id="chips">0 Chips</h2>
+
+<button id="spin">SPIN</button>
+
+<br>
+
+<button class="upgrade" id="upgrade">
+Upgrade Click (50)
+</button>
+
+<button class="upgrade" id="plinko">
+PLINKO (10)
+</button>
+
+<script>
+let chips = 0;
+let perClick = 1;
+
+const chipsText = document.getElementById("chips");
+
+function update() {
+  chipsText.innerText =
+    Math.floor(chips) + " Chips";
+}
+
+document.getElementById("spin").onclick = () => {
+  chips += perClick;
+  update();
+};
+
+document.getElementById("upgrade").onclick = () => {
+  if (chips >= 50) {
+    chips -= 50;
+    perClick++;
+    update();
+  }
+};
+
+document.getElementById("plinko").onclick = () => {
+  if (chips >= 10) {
+    chips -= 10;
+
+    const rewards = [0, 5, 10, 25, 50];
+    const reward =
+      rewards[Math.floor(Math.random() * rewards.length)];
+
+    chips += reward;
+
+    alert("Plinko won " + reward + " chips!");
+    update();
+  }
+};
+
+update();
+</script>
+
+</body>
+</html>
